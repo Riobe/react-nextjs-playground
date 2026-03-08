@@ -1,0 +1,17 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "files.insertFinalNewline": true,
+  "search.exclude": {
+    "**/.aider*": true,
+    "**/.build*": true,
+    "**/.generate*": true,
+    "**/.nyc*": true,
+    "**/*.log": true,
+    "**/build": true,
+    "**/coverage": true,
+    "**/dist": true,
+    "**/node_modules": true
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "📦 🧪 👀 Run unit tests in current package and watch for changes",
+      "type": "shell",
+      "command": "npm run test -- ${relativeFileDirname} --watch",
+      "problemMatcher": []
+    },
+    {
+      "label": "📦 🧪 Run unit tests in current package",
+      "type": "shell",
+      "command": "npm run test -- ${relativeFileDirname}",
+      "problemMatcher": []
+    },
+    {
+      "label": "🧪 👀 Run unit tests and watch for changes",
+      "type": "shell",
+      "command": "npm run test -- ${input:pattern} --watch",
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "pattern",
+      "description": "The test path pattern to pass to Jest",
+      "default": "",
+      "type": "promptString"
+    }
+  ]
+}
