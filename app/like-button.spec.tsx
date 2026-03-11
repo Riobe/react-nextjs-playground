@@ -43,6 +43,15 @@ describe('Like Button', () => {
     expect(button).toHaveTextContent('(1)');
   });
 
+  it('allows the label to be changed', async () => {
+    render(<LikeButton>Votes</LikeButton>);
+
+    const button = screen.getByRole('button');
+
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveTextContent('Votes');
+  });
+
   it('renders the Like Button unchanged', async () => {
     const { container } = render(<LikeButton />);
     expect(container).toMatchSnapshot();
