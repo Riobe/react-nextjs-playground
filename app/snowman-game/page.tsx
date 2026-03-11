@@ -21,7 +21,7 @@ export default function SnowmanGame() {
 
   const matchedWord = getMatchedWord(correctWord, guesses);
   const hasWon = matchedWord === correctWord && correctWord.length > 0;
-  const triesLeft = 6 - errors;
+  const triesLeft = 7 - errors;
 
   const reset = (difficulty?: Difficulty) => {
     setErrors(0);
@@ -43,9 +43,9 @@ export default function SnowmanGame() {
   }, []);
 
   if (triesLeft === 0) {
-    return <FinalState message="Oops! The correct word was {correctWord}! Try again?" onClick={() => reset()} />;
+    return <FinalState message={`Oops! The correct word was ${correctWord}! Try again?`} onClick={() => reset()} />;
   } else if (hasWon) {
-    return <FinalState message="Congratulations! It was {correctWord}. Play again?" onClick={() => reset()} />;
+    return <FinalState message={`Congratulations! It was ${correctWord}. Play again?`} onClick={() => reset()} />;
   }
 
   return (
@@ -85,8 +85,8 @@ export default function SnowmanGame() {
         <div>{matchedWord}</div>
         <div>Tries left: {triesLeft}</div>
 
-        <div>
-          <p>Guessed letters:</p>
+        <div className="text-green-200 text-red-200">
+          <p className="text-white">Guessed letters:</p>
           {guesses.map((guess, index) => (
             <p key={index} className={`font-bold text-${correctWord.includes(guess) ? 'green' : 'red'}-200`}>
               {guess}
