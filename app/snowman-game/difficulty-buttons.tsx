@@ -1,6 +1,5 @@
 import { Difficulty } from './getRandomWord';
 import clsx from 'clsx';
-import '@/app/globals.css';
 
 // If this template string is put directly into the clsx class name, the CSS for these
 // classes won't be included, so even though they'll be applied as classes, they won't
