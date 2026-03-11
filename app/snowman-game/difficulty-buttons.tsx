@@ -2,6 +2,13 @@ import { Difficulty } from './getRandomWord';
 import clsx from 'clsx';
 import '@/app/globals.css';
 
+// If this template string is put directly into the clsx class name, the CSS for these
+// classes won't be included, so even though they'll be applied as classes, they won't
+// do anything.
+const buttonStyle = (color: string) => {
+  return `bg-${color}-700 hover:bg-${color}-900 rounded-full px-4 text-white`;
+};
+
 export default function DifficultyButtons({
   difficulties,
   currentDifficulty,
@@ -13,20 +20,19 @@ export default function DifficultyButtons({
 }) {
   return (
     <div className="flex justify-center">
-      {difficulties.map((buttonDifficulty) => {
-        const className = `bg-${buttonDifficulty.color}-700 hover:bg-${buttonDifficulty.color}-900 rounded-full px-4 text-white${buttonDifficulty.difficulty === currentDifficulty ? ' font-bold' : ''}`;
-        return (
-          <button
-            className={className}
-            key={buttonDifficulty.difficulty}
-            onClick={() => {
-              onClick(buttonDifficulty.difficulty);
-            }}
-          >
-            {buttonDifficulty.name}
-          </button>
-        );
-      })}
+      {difficulties.map((buttonDifficulty) => (
+        <button
+          className={clsx(buttonStyle(buttonDifficulty.color), {
+            'font-bold': buttonDifficulty.difficulty === currentDifficulty,
+          })}
+          key={buttonDifficulty.difficulty}
+          onClick={() => {
+            onClick(buttonDifficulty.difficulty);
+          }}
+        >
+          {buttonDifficulty.name}
+        </button>
+      ))}
     </div>
   );
 }

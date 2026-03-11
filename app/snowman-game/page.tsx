@@ -50,7 +50,7 @@ export default function SnowmanGame() {
 
   return (
     <div id="snowman-game" className="flex items-start w-full">
-      <Snowman errors={errors} className="mr-20" />
+      <Snowman errors={errors} className="mr-20 border-sky-500" />
       <div>
         <div className="flex justify-center">
           <button className="bg-sky-500 hover:bg-sky-700 rounded-full px-4 text-white" onClick={() => reset()}>

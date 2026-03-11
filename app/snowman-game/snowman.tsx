@@ -2,7 +2,7 @@ import './snowman.css';
 
 export default function Snowman({ errors, className }: { errors: number; className?: string }) {
   return (
-    <div className={`snowman bg-white rounded-lg border-5 border-sky-500${className && ' ' + className}`}>
+    <div className={`snowman bg-white rounded-lg border-5${className && ' ' + className}`}>
       {errors >= 5 && (
         <>
           <div className="Hat_Top"></div>
