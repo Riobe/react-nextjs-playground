@@ -10,8 +10,8 @@ export default function Home() {
       <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
         Every technology you use deserves a little playground to mess around with and have some working example of each
         technique in it. Growing it over time as you need to solve interesting problems and being able to get back to
-        reference those solutions is a huge benefit I should have started earlier in my career. This one will be
-        devouted to React demonstrations and grow over time.
+        reference those solutions is a huge benefit I should have started earlier in my career. This one will be devoted
+        to React demonstrations and grow over time.
       </p>
       <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
         This site was created with the Next.js framework for React which handles routing, image display, and much more.
