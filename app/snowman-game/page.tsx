@@ -85,7 +85,8 @@ export default function SnowmanGame() {
         <div>{matchedWord}</div>
         <div>Tries left: {triesLeft}</div>
 
-        <div className="text-green-200 text-red-200">
+        <div className="hidden bg-green-700 bg-rose-700 bg-blue-700 hover:bg-green-900 hover:bg-rose-900 hover:bg-blue-900 text-red-200 text-green-200"></div>
+        <div>
           <p className="text-white">Guessed letters:</p>
           {guesses.map((guess, index) => (
             <p key={index} className={`font-bold text-${correctWord.includes(guess) ? 'green' : 'red'}-200`}>
