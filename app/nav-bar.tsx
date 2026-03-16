@@ -7,6 +7,7 @@ import clsx from 'clsx';
 const pages = [
   { name: 'Home', path: '/' },
   { name: 'Snowman', path: '/snowman-game' },
+  { name: 'Refs & Effects', path: '/refs-and-effects' },
 ];
 
 export default function NavBar() {
