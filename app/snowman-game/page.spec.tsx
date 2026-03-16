@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SnowmanGame from './page';
-import { getRandomWord } from './getRandomWord';
+import { Difficulty, getRandomWord } from './getRandomWord';
 
 jest.mock('./getRandomWord', () => ({
   getRandomWord: jest.fn(),
@@ -19,6 +19,7 @@ const submitGuess = async (user: ReturnType<typeof userEvent.setup>, letter: str
 
 describe('SnowmanGame', () => {
   beforeEach(() => {
+    mockedGetRandomWord.mockReset();
     mockedGetRandomWord.mockReturnValue('cat');
   });
 
@@ -72,7 +73,8 @@ describe('SnowmanGame', () => {
 
     await submitGuess(user, 'c');
 
-    expect(screen.getByText('c__')).toBeInTheDocument();
+    expect(screen.getByTestId('matched-word')).toBeInTheDocument();
+    expect(screen.getByTestId('matched-word')).toHaveTextContent('c__');
   });
 
   it('shows the loss final state when tries run out', async () => {
@@ -123,5 +125,27 @@ describe('SnowmanGame', () => {
     expect(screen.getByText('Tries left: 7')).toBeInTheDocument();
     expect(mockedGetRandomWord).toHaveBeenLastCalledWith('easy');
   });
-});
 
+  it('should maintain the current difficulty when the Start Over button is clicked', async () => {
+    mockedGetRandomWord.mockReset();
+    mockedGetRandomWord.mockImplementation((difficulty?: Difficulty): string => {
+      if (difficulty === 'medium' || !difficulty) {
+        return 'bigcat';
+      }
+
+      return 'cat';
+    });
+    const user = userEvent.setup();
+    render(<SnowmanGame />);
+
+    expect(screen.getByTestId('matched-word')).toHaveTextContent(/^_{6}$/);
+
+    await user.click(screen.getByRole('button', { name: 'Short' }));
+
+    expect(screen.getByTestId('matched-word')).toHaveTextContent(/^_{3}$/);
+
+    await user.click(screen.getByRole('button', { name: 'Start Over!' }));
+
+    expect(screen.getByTestId('matched-word')).toHaveTextContent(/^_{3}$/);
+  });
+});

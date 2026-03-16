@@ -1,11 +1,12 @@
 import { Difficulty } from './getRandomWord';
 import clsx from 'clsx';
+import './difficulty-buttons.css';
 
 // If this template string is put directly into the clsx class name, the CSS for these
 // classes won't be included, so even though they'll be applied as classes, they won't
 // do anything.
 const buttonStyle = (color: string) => {
-  return `bg-${color}-700 hover:bg-${color}-900 rounded-full px-4 text-white`;
+  return `difficulty-button ${color}-button`;
 };
 
 export default function DifficultyButtons({
@@ -21,7 +22,7 @@ export default function DifficultyButtons({
     <div className="flex justify-center">
       {difficulties.map((buttonDifficulty) => (
         <button
-          className={clsx(buttonStyle(buttonDifficulty.color), {
+          className={clsx(buttonStyle(buttonDifficulty.difficulty), {
             'font-bold': buttonDifficulty.difficulty === currentDifficulty,
           })}
           key={buttonDifficulty.difficulty}

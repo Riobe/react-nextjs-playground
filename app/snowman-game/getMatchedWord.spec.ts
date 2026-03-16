@@ -37,12 +37,12 @@ describe('getMatchedWord', () => {
     expect(matched).toBe('test');
   });
 
-  it('should change  no underscores for incorrect guesses', async () => {
-    const guesses: string[] = ['a', 'b', 'c'];
-    const correctWord = 'test';
+  it('should change no underscores for incorrect guesses', async () => {
+    const guesses: string[] = ['z', 'p', 'd'];
+    const correctWord = 'bigcat';
 
     const matched = getMatchedWord(correctWord, guesses);
 
-    expect(matched).toBe('____');
+    expect(matched).toBe('_'.repeat(correctWord.length));
   });
 });

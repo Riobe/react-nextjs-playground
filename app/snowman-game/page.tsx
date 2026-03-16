@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Snowman from './snowman';
 import FinalState from './final-state';
 import { type Difficulty, getRandomWord } from './getRandomWord';
@@ -8,15 +8,15 @@ import { getMatchedWord } from './getMatchedWord';
 import DifficultyButtons from './difficulty-buttons';
 
 const difficulties = [
-  { name: 'Short', difficulty: 'easy', color: 'green' },
-  { name: 'Medium', difficulty: 'medium', color: 'blue' },
-  { name: 'Longer', difficulty: 'hard', color: 'rose' },
+  { name: 'Short', difficulty: 'easy' },
+  { name: 'Medium', difficulty: 'medium' },
+  { name: 'Longer', difficulty: 'hard' },
 ] as { name: string; difficulty: Difficulty; color: string }[];
 
 export default function SnowmanGame() {
   const [errors, setErrors] = useState(0);
   const [guesses, setGuesses] = useState([] as string[]);
-  const [correctWord, setCorrectWord] = useState('');
+  const [correctWord, setCorrectWord] = useState(() => getRandomWord());
   const [difficulty, setDifficulty] = useState('medium' as Difficulty);
 
   const matchedWord = getMatchedWord(correctWord, guesses);
@@ -32,20 +32,14 @@ export default function SnowmanGame() {
     setCorrectWord(getRandomWord(difficulty));
   };
 
-  useEffect(() => {
-    // Effects are intended to synchronize state between React and external systems
-    // but Next.js causes this to be a problem because it tries to create an initial
-    // render on the server that then mismatches if the useState hook is initialized
-    // with a random value. Putting it in an effect makes the intended rerender
-    // to be marked as purposeful
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setCorrectWord(getRandomWord());
-  }, []);
-
   if (triesLeft === 0) {
-    return <FinalState message={`Oops! The correct word was ${correctWord}! Try again?`} onClick={() => reset()} />;
+    return (
+      <FinalState message={`Oops! The correct word was ${correctWord}! Try again?`} onClick={() => reset(difficulty)} />
+    );
   } else if (hasWon) {
-    return <FinalState message={`Congratulations! It was ${correctWord}. Play again?`} onClick={() => reset()} />;
+    return (
+      <FinalState message={`Congratulations! It was ${correctWord}. Play again?`} onClick={() => reset(difficulty)} />
+    );
   }
 
   return (
@@ -53,7 +47,10 @@ export default function SnowmanGame() {
       <Snowman errors={errors} className="mr-20 border-sky-500" />
       <div>
         <div className="flex justify-center">
-          <button className="bg-sky-500 hover:bg-sky-700 rounded-full px-4 text-white" onClick={() => reset()}>
+          <button
+            className="bg-sky-500 hover:bg-sky-700 rounded-full px-4 text-white"
+            onClick={() => reset(difficulty)}
+          >
             Start Over!
           </button>
         </div>
@@ -61,7 +58,9 @@ export default function SnowmanGame() {
         <DifficultyButtons
           difficulties={difficulties}
           currentDifficulty={difficulty}
-          onClick={(difficulty) => reset(difficulty)}
+          onClick={(difficulty) => {
+            reset(difficulty);
+          }}
         />
 
         <form
@@ -82,10 +81,10 @@ export default function SnowmanGame() {
           </label>
         </form>
 
-        <div>{matchedWord}</div>
+        <div data-testid="matched-word">{matchedWord}</div>
         <div>Tries left: {triesLeft}</div>
 
-        <div className="hidden bg-green-700 bg-rose-700 bg-blue-700 hover:bg-green-900 hover:bg-rose-900 hover:bg-blue-900 text-red-200 text-green-200"></div>
+        {/* <div className="hidden text-red-200 text-green-200"></div> */}
         <div>
           <p className="text-white">Guessed letters:</p>
           {guesses.map((guess, index) => (

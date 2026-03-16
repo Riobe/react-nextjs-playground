@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+.correctGuess {
+  @apply text-green-200;
+}
+
+.incorrectGuess {
+  @apply text-red-200;
+}
