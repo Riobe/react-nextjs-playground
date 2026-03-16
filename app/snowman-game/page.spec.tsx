@@ -127,7 +127,6 @@ describe('SnowmanGame', () => {
   });
 
   it('should maintain the current difficulty when the Start Over button is clicked', async () => {
-    mockedGetRandomWord.mockReset();
     mockedGetRandomWord.mockImplementation((difficulty?: Difficulty): string => {
       if (difficulty === 'medium' || !difficulty) {
         return 'bigcat';
@@ -135,6 +134,7 @@ describe('SnowmanGame', () => {
 
       return 'cat';
     });
+
     const user = userEvent.setup();
     render(<SnowmanGame />);
 
